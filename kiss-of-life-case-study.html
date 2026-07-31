@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — The PR Breakdown of KISS OF LIFE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E1117;
+    --panel: #181C24;
+    --panel-alt: #1F1929;
+    --ink: #F2EFFA;
+    --muted: #A79FC0;
+    --crisis: #FF5A3C;
+    --crisis-soft: rgba(255, 90, 60, 0.12);
+    --mint: #3DDC97;
+    --mint-soft: rgba(61, 220, 151, 0.12);
+    --brass: #CE9E45;
+    --line: rgba(242, 239, 250, 0.09);
+    --line-strong: rgba(242, 239, 250, 0.18);
+    --radius: 14px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 12% 0%, rgba(226, 62, 118, 0.14), transparent 45%),
+      radial-gradient(circle at 90% 12%, rgba(61, 220, 151, 0.08), transparent 40%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .mono{ font-family: 'IBM Plex Mono', monospace; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* NAV */
+  header.nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(14, 17, 23, 0.78);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand{
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  .brand-dot{
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--crisis);
+    box-shadow: 0 0 0 4px var(--crisis-soft);
+  }
+  .navlinks{
+    display: flex;
+    gap: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    overflow-x: auto;
+  }
+  .navlinks a{ transition: color 0.2s ease; white-space: nowrap; }
+  .navlinks a:hover{ color: var(--ink); }
+
+  /* HERO */
+  .hero{
+    padding: 96px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--crisis);
+    background: var(--crisis-soft);
+    border: 1px solid rgba(255, 90, 60, 0.35);
+    padding: 7px 14px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  .hero h1{
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1.05;
+    max-width: 900px;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--crisis);
+    font-weight: 500;
+  }
+  .hero p.sub{
+    margin-top: 22px;
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 17px;
+  }
+  .meta-row{
+    margin-top: 28px;
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .meta-row span{ color: var(--ink); }
+
+  .stat-strip{
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .stat{
+    background: var(--panel);
+    padding: 26px 22px;
+  }
+  .stat .num{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--crisis);
+  }
+  .stat.positive .num{ color: var(--mint); }
+  .stat.neutral .num{ color: var(--brass); }
+  .stat .label{
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* SECTION SHARED */
+  section{
+    padding: 88px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 44px;
+    flex-wrap: wrap;
+  }
+  .section-tag{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .section-head h2{
+    font-size: clamp(28px, 3.6vw, 40px);
+  }
+
+  /* OVERVIEW */
+  .overview-grid{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .thesis-box{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--crisis);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+  .thesis-box .kicker{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--crisis);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .thesis-box p{
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.45;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .context-cards{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .context-card{
+    background: var(--panel-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .context-card h4{
+    font-size: 15px;
+    color: var(--brass);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .context-card p{
+    color: var(--muted);
+    font-size: 14.5px;
+    margin: 0;
+  }
+
+  /* TIMELINE */
+  .timeline{
+    position: relative;
+    padding-left: 32px;
+    border-left: 1px solid var(--line-strong);
+  }
+  .tl-item{
+    position: relative;
+    padding-bottom: 44px;
+  }
+  .tl-item:last-child{ padding-bottom: 0; }
+  .tl-dot{
+    position: absolute;
+    left: -38px;
+    top: 4px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--muted);
+  }
+  .tl-item.flag .tl-dot{
+    border-color: var(--crisis);
+    background: var(--crisis);
+    box-shadow: 0 0 0 4px var(--crisis-soft);
+  }
+  .tl-date{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--crisis);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    display: inline-block;
+    background: var(--crisis-soft);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .tl-item:not(.flag) .tl-date{
+    color: var(--muted);
+    background: rgba(167, 159, 192, 0.1);
+  }
+  .tl-card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+  }
+  .tl-card h3{
+    font-size: 19px;
+    margin-bottom: 8px;
+  }
+  .tl-card p{
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+  }
+  .tl-impact{
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--brass);
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    width: 100%;
+  }
+
+  /* MARKET IMPACT */
+  .matrix{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .matrix-card{
+    border-radius: var(--radius);
+    padding: 30px;
+    border: 1px solid var(--line);
+  }
+  .matrix-card.west{
+    background: linear-gradient(160deg, rgba(255,90,60,0.10), var(--panel) 60%);
+    border-color: rgba(255, 90, 60, 0.28);
+  }
+  .matrix-card.east{
+    background: linear-gradient(160deg, rgba(61,220,151,0.08), var(--panel) 60%);
+    border-color: rgba(61, 220, 151, 0.25);
+  }
+  .matrix-card .region-tag{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .matrix-card.west .region-tag{ color: var(--crisis); }
+  .matrix-card.east .region-tag{ color: var(--mint); }
+  .matrix-card h3{
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .matrix-card ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .matrix-card li{
+    font-size: 15px;
+    color: var(--ink);
+    padding-left: 20px;
+    position: relative;
+  }
+  .matrix-card li::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .matrix-card.west li::before{ background: var(--crisis); }
+  .matrix-card.east li::before{ background: var(--mint); }
+  .matrix-card li span{
+    display: block;
+    color: var(--muted);
+    font-size: 13.5px;
+    margin-top: 3px;
+  }
+
+  /* GOVERNANCE FLOW */
+  .flow{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+  .flow-step{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .flow-step .fnum{
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .flow-step h4{
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  .flow-step p{
+    color: var(--muted);
+    font-size: 13.5px;
+    margin: 0;
+  }
+  .flow-arrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 20px;
+    padding: 0 6px;
+  }
+  .flow-step.final{
+    border-color: rgba(255, 90, 60, 0.4);
+    background: linear-gradient(160deg, rgba(255,90,60,0.10), var(--panel));
+  }
+  .flow-loop-note{
+    margin-top: 22px;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--crisis);
+  }
+
+  /* TAKEAWAYS */
+  .takeaways{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .takeaway-card{
+    background: var(--panel-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .takeaway-num{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 32px;
+    color: var(--mint);
+    font-weight: 600;
+  }
+  .takeaway-card h4{
+    font-size: 18px;
+  }
+  .takeaway-card p{
+    color: var(--muted);
+    font-size: 14.5px;
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer{
+    padding: 64px 0 48px;
+  }
+  .footer-grid{
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+  }
+  footer h4{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .source-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .disclaimer{
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .copyright{
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* REVEAL ANIMATION */
+  .reveal{
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity: 1; transform: none; transition: none; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 920px){
+    .overview-grid{ grid-template-columns: 1fr; }
+    .matrix{ grid-template-columns: 1fr; }
+    .stat-strip{ grid-template-columns: repeat(2, 1fr); }
+    .flow{ grid-template-columns: 1fr; }
+    .flow-arrow{ transform: rotate(90deg); padding: 6px 0; }
+    .takeaways{ grid-template-columns: 1fr; }
+    .footer-grid{ grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px){
+    .wrap, .nav-inner{ padding-left: 20px; padding-right: 20px; }
+    .navlinks{ display: none; }
+    .stat-strip{ grid-template-columns: 1fr; }
+    .hero{ padding: 72px 0 48px; }
+  }
+
+  *:focus-visible{
+    outline: 2px solid var(--mint);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-dot"></span>CASE FILE / S2</div>
+    <nav class="navlinks">
+      <a href="#overview">Overview</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#market">Market Impact</a>
+      <a href="#governance">Governance</a>
+      <a href="#takeaways">Takeaways</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero wrap" style="border-bottom:none; padding-bottom:0;">
+    <span class="eyebrow">PR Breakdown · K Pop Brand Strategy · S2 Entertainment</span>
+    <h1>When a birthday stream became a <em>global</em> credibility crisis.</h1>
+    <p class="sub">A case study on KISS OF LIFE, the agency choices that turned a costume concept into a boycott, and why the fallout split cleanly along the fault line between global and domestic fandoms.</p>
+    <div class="meta-row">
+      <div>Subject <span>KISS OF LIFE — Julie, Natty, Belle, Haneul</span></div>
+      <div>Agency <span>S2 Entertainment</span></div>
+      <div>Flashpoint <span>April 2, 2025</span></div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="num">200K+</div>
+        <div class="label">Instagram unfollows</div>
+      </div>
+      <div class="stat">
+        <div class="num">4</div>
+        <div class="label">Individual apology letters</div>
+      </div>
+      <div class="stat neutral">
+        <div class="num">2</div>
+        <div class="label">Members raised in the US</div>
+      </div>
+      <div class="stat positive">
+        <div class="num">~0</div>
+        <div class="label">Domestic chart disruption</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="overview">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-tag">01 / Overview</span>
+          <h2>Executive summary</h2>
+        </div>
+      </div>
+      <div class="overview-grid">
+        <div class="thesis-box reveal">
+          <span class="kicker">Core thesis</span>
+          <p>The group's global momentum was not destroyed by one bad concept. It was destroyed by a leadership team that let artists absorb a mistake the agency itself approved, scheduled, and produced.</p>
+        </div>
+        <div class="context-cards">
+          <div class="context-card reveal">
+            <h4>Group background</h4>
+            <p>Debuted under S2 Entertainment in July 2023 with strong vocal execution and mature R and B or hip hop production, positioning the act as one of the more Western leaning rookie groups of its generation.</p>
+          </div>
+          <div class="context-card reveal">
+            <h4>Competitive advantage</h4>
+            <p>Members Julie and Belle grew up in the United States, which gave the group an unusually high baseline of Western cultural fluency compared to most rookie acts.</p>
+          </div>
+          <div class="context-card reveal">
+            <h4>Flashpoint event</h4>
+            <p>An agency sanctioned birthday livestream in April 2025 undid a large share of the international trust the group had built over its first two years.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-tag">02 / Chronology</span>
+          <h2>How it unfolded</h2>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Pre debut</span>
+          <div class="tl-card">
+            <h3>An old clip resurfaces</h3>
+            <p>Footage from Julie's pre debut training years surfaced showing her reciting a racial slur while covering a rap song.</p>
+            <div class="tl-impact">Response: a direct, personal apology, accepted by international fans as an isolated trainee era mistake.</div>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Weeks before</span>
+          <div class="tl-card">
+            <h3>A quiet warning sign</h3>
+            <p>Member Belle messaged fans on an artist platform beforehand, asking them to promise not to leave the fandom, a sign someone inside the group sensed risk without anyone stopping the plan.</p>
+          </div>
+        </div>
+
+        <div class="tl-item flag reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">April 2, 2025</span>
+          <div class="tl-card">
+            <h3>The birthday livestream airs</h3>
+            <p>An agency organized broadcast for Julie's birthday, themed around old school hip hop, featured cornrows, gold chains, exaggerated accents, and caricatured humor.</p>
+            <div class="tl-impact">Immediate backlash across X, TikTok, and Reddit within hours.</div>
+          </div>
+        </div>
+
+        <div class="tl-item flag reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">April 3, 2025</span>
+          <div class="tl-card">
+            <h3>A statement that made things worse</h3>
+            <p>S2 Entertainment framed the broadcast as a tribute to hip hop culture, a response many read as evasive rather than accountable.</p>
+            <div class="tl-impact">Western music media rejected the statement as performative.</div>
+          </div>
+        </div>
+
+        <div class="tl-item flag reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">April 5, 2025</span>
+          <div class="tl-card">
+            <h3>Four handwritten letters</h3>
+            <p>Management directed all four members to post separate handwritten apology notes, then casual social posts followed soon after, signaling a mismatched, poorly coordinated internal response.</p>
+            <div class="tl-impact">Over 200,000 Instagram unfollows recorded within days.</div>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Following months</span>
+          <div class="tl-card">
+            <h3>Boycotts settle in</h3>
+            <p>Key international fan communities and Black and Latino content creators organized active boycotts while Korean and Japanese streaming metrics stayed largely undisturbed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="market">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-tag">03 / Divergence</span>
+          <h2>One incident, two markets</h2>
+        </div>
+      </div>
+
+      <div class="matrix">
+        <div class="matrix-card west reveal">
+          <span class="region-tag">Global / Western fallout</span>
+          <h3>Sharp and lasting</h3>
+          <ul>
+            <li>200,000+ Instagram unfollows recorded within days of the broadcast.
+              <span>A visible, countable signal of trust lost in real time.</span>
+            </li>
+            <li>Active boycotts organized by international fan bases and Black and Latino creators.
+              <span>Backlash extended past casual fans into organized communities.</span>
+            </li>
+            <li>Western music outlets rejected the agency's statement as evasive.
+              <span>Media coverage amplified the crisis rather than absorbing it.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="matrix-card east reveal">
+          <span class="region-tag">Domestic / East Asian reaction</span>
+          <h3>Quiet and unaffected</h3>
+          <ul>
+            <li>Korean and Japanese streaming metrics saw minimal chart disruption.
+              <span>Commercial performance at home barely registered the story.</span>
+            </li>
+            <li>Mainstream domestic outlets largely ignored the controversy.
+              <span>Little local media pressure meant little internal urgency.</span>
+            </li>
+            <li>Regional audiences kept prioritizing new music over global discourse.
+              <span>A structural gap in how each market weighs cultural missteps.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="governance">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-tag">04 / Root cause</span>
+          <h2>The deflection loop</h2>
+        </div>
+      </div>
+
+      <div class="flow">
+        <div class="flow-step reveal">
+          <span class="fnum">Step 1</span>
+          <h4>Concept clears internal review</h4>
+          <p>Costumes, props, and schedule pass through agency pipelines with no real brand safety check.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step reveal">
+          <span class="fnum">Step 2</span>
+          <h4>No one stops the broadcast</h4>
+          <p>Staff on site let the livestream run despite clear, visible cultural missteps during filming.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step reveal">
+          <span class="fnum">Step 3</span>
+          <h4>Agency issues evasive language</h4>
+          <p>Leadership claims it did not realize the content would reinforce stereotypes, avoiding direct ownership.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step final reveal">
+          <span class="fnum">Step 4</span>
+          <h4>Artists absorb the backlash</h4>
+          <p>Members are pushed to write personal apology letters for a decision the company made and approved.</p>
+        </div>
+      </div>
+      <div class="flow-loop-note">Every future concept risk still runs through the same unaudited pipeline until Step 1 is fixed.</div>
+    </div>
+  </section>
+
+  <section id="takeaways" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-tag">05 / Strategy</span>
+          <h2>What agencies should take from this</h2>
+        </div>
+      </div>
+
+      <div class="takeaways">
+        <div class="takeaway-card reveal">
+          <div class="takeaway-num">01</div>
+          <h4>Make cultural review part of the pipeline</h4>
+          <p>Global acts need mandatory cross cultural checks before any concept is filmed, not after it airs.</p>
+        </div>
+        <div class="takeaway-card reveal">
+          <div class="takeaway-num">02</div>
+          <h4>Leadership owns approved concepts</h4>
+          <p>If management signs off on a concept, management answers for it publicly, not the artists who performed it.</p>
+        </div>
+        <div class="takeaway-card reveal">
+          <div class="takeaway-num">03</div>
+          <h4>Respect the genre, not the costume</h4>
+          <p>Borrowing from a musical culture means understanding its history first, rather than treating it as a styling gimmick.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="footer-grid">
+    <div>
+      <h4>Sources referenced</h4>
+      <ul class="source-list">
+        <li>Complex — coverage of Julie's follow up apology and the livestream fallout</li>
+        <li>allkpop — reporting on the group's third public apology</li>
+        <li>Sportskeeda K Pop desk — livestream details and Instagram unfollow counts</li>
+        <li>Just Jared / iMBC — S2 Entertainment's official April 3 statement</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Disclaimer</h4>
+      <p class="disclaimer">This page is an independent case study built for educational and strategic discussion purposes. It reflects publicly reported events and commentary and is not affiliated with, endorsed by, or representative of the views of S2 Entertainment or the members of KISS OF LIFE.</p>
+    </div>
+  </div>
+  <div class="copyright">
+    <span>Case File / S2 — Crisis Management Study</span>
+    <span>Compiled 2026</span>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Active nav link highlight
+  const sections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('.navlinks a');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === '#' + id ? '#F2EFFA' : '';
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  sections.forEach(sec => navObserver.observe(sec));
+</script>
+
+</body>
+</html>
