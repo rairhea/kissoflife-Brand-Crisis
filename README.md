@@ -6,7 +6,7 @@ An interactive, diagnostic public relations and crisis management study analyzin
 
 ## 🚀 View the Interactive Case Study
 
-📁 **[Open Interactive Case Study ([index.html)](./index.html](https://rairhea.github.io/kiss-of-life-pr-case-study/kiss-of-life-index.html))**
+📁 **[Open Interactive Case Study](./index.html](https://rairhea.github.io/kissoflife-Brand-Crisis/kiss-of-life-case-study.html))**
 
 ---
 
